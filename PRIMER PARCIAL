@@ -1,0 +1,72 @@
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+struct nodo{
+	int numero;
+	struct nodo *siguiente;};
+typedef nodo *ptrPila; 
+void push(ptrPila &j, int valor)
+{ptrPila aux;
+	aux = new (struct nodo);
+	aux->numero = valor;
+	aux->siguiente = j;
+	j = aux;}
+
+int pop( ptrPila &j)
+{int numero;
+	ptrPila aux;
+	aux = j;
+	numero = aux->numero;
+	j = aux->siguiente;
+	delete(aux);
+	return numero;}
+void listar_pila( ptrPila j)
+{
+	ptrPila aux;
+	aux = j;
+	while(aux != NULL)
+	{cout<<"\t"<<aux->numero<<endl;
+		aux = aux->siguiente;}
+}
+
+int main(void)
+{
+	ptrPila j = NULL;
+	int dato;
+	int opc;
+	int x;	
+
+	do
+	{
+		cout<<"\n\tElija una opcion del bus\n "<<endl;
+		cout<<"\t1. Escriba el numero de pasajero a subir al bus"<<endl;
+		cout<<"\t2. numero de pasajero que bajo"<<endl;
+		cout<<"\t3. ver el numero de pasajero que bajo de bus"<<endl;
+		cout<<"\t4. Salir   "<<endl;
+		cout<<"\n Elija una opcion: ";
+		cin>>opc;
+		switch (opc)
+		{
+			case 1:
+			cout<<"\nEscriba el numeor de pasajero a subir al bus\n";
+			cin>>dato;
+			push(j,dato);
+			break;
+			case 2:
+				x = pop(j);
+				cout<<"numero de papsajero que bajo del bus\n";
+				cout<<"Pasajero "<< x <<" Bajado\n";
+			break;	
+			case 3:
+				cout<<"\nLista\n";
+				if(j!=NULL)
+				listar_pila(j);
+				else
+				cout<<"Ya no hay pasajeros en el bus\n";
+			break;	
+		}
+		cout<<endl<<endl;
+		system("pause"); system("cls");
+	}while(opc!=4);
+	return 0 ;
+} 
